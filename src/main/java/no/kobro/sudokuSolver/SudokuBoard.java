@@ -7,18 +7,8 @@ import java.util.Set;
 public class SudokuBoard {
 
     private final SudokuCell[][] board;
-
     public static final int SIZE = 9;
     public static final int SUBGRID_SIZE = 3;
-
-    public SudokuBoard() {
-        board = new SudokuCell[SIZE][SIZE];
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                board[row][col] = new SudokuCell();
-            }
-        }
-    }
 
     public SudokuBoard(int[][] initialValues) {
         if (initialValues.length != SIZE || initialValues[0].length != SIZE) {
@@ -42,6 +32,7 @@ public class SudokuBoard {
     public void setCellValue(int row, int col, int value) {
         validateIndices(row, col);
         board[row][col].setValue(value);
+        updateCandidates();
     }
 
     public List<Integer> getRow(int row) {
@@ -146,8 +137,9 @@ public class SudokuBoard {
     }
 
     public void printAllCandidates() {
-        int size = SIZE;  // Assuming SIZE is 9
-        int subgridSize = SUBGRID_SIZE;  // Assuming SUBGRID_SIZE is 3
+        updateCandidates();
+        int size = SIZE;
+        int subgridSize = SUBGRID_SIZE;
 
         StringBuilder sb = new StringBuilder();
 
@@ -166,14 +158,12 @@ public class SudokuBoard {
 
                 // Print the candidates within the cell
                 if (!cell.isEmpty()) {
-                    sb.append(String.format(" (%d)    ", cell.getValue()));
+                    sb.append(String.format("(%d) ", cell.getValue()));
                 } else {
                     sb.append("(");
                     for (int i = 1; i <= size; i++) {
                         if (candidates.contains(i)) {
                             sb.append(i);
-                        } else {
-                            sb.append(" ");
                         }
                     }
                     sb.append(") ");

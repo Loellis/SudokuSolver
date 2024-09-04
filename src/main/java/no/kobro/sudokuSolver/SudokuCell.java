@@ -38,32 +38,22 @@ public class SudokuCell {
 
     public void setValue(int value) {
         if (isFixed) {
-            throw new UnsupportedOperationException("You cannot change the value of a fixed cell");
+            throw new UnsupportedOperationException("You cannot change the value of a fixed cell.");
         }
         if (value < MIN_VALUE || value > MAX_VALUE) {
-            throw new IllegalArgumentException("Invalid cell value.");
+            throw new IllegalArgumentException("Invalid cell value, must be between 1 and 9.");
         }
         this.value = value;
         this.candidates.clear();
+        this.isFixed = true;
     }
 
     public boolean isEmpty() {
         return this.value == EMPTY;
     }
 
-    public boolean isFixed() {
-        return isFixed;
-    }
-
     public Set<Integer> getCandidates() {
         return candidates;
-    }
-
-    public void setCandidates(Set<Integer> candidates) {
-        if (isFixed) {
-            throw new UnsupportedOperationException("Cannot set candidates for a fixed cell.");
-        }
-        this.candidates = candidates;
     }
 
     public void removeCandidate(int candidate) {
@@ -85,5 +75,4 @@ public class SudokuCell {
     public String toString() {
         return isEmpty() ? "." : String.valueOf(value);
     }
-
 }
