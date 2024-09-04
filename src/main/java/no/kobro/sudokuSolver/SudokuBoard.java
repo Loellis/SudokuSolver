@@ -144,4 +144,46 @@ public class SudokuBoard {
             }
         }
     }
+
+    public void printAllCandidates() {
+        int size = SIZE;  // Assuming SIZE is 9
+        int subgridSize = SUBGRID_SIZE;  // Assuming SUBGRID_SIZE is 3
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int row = 0; row < size; row++) {
+            if (row % subgridSize == 0) {
+                sb.append("+---------+---------+---------+\n");
+            }
+
+            for (int col = 0; col < size; col++) {
+                if (col % subgridSize == 0) {
+                    sb.append("|");
+                }
+
+                SudokuCell cell = getCell(row, col);
+                Set<Integer> candidates = cell.getCandidates();
+
+                // Print the candidates within the cell
+                if (!cell.isEmpty()) {
+                    sb.append(String.format(" (%d)    ", cell.getValue()));
+                } else {
+                    sb.append("(");
+                    for (int i = 1; i <= size; i++) {
+                        if (candidates.contains(i)) {
+                            sb.append(i);
+                        } else {
+                            sb.append(" ");
+                        }
+                    }
+                    sb.append(") ");
+                }
+            }
+
+            sb.append("|\n");
+        }
+        sb.append("+---------+---------+---------+\n");
+
+        System.out.print(sb);
+    }
 }
