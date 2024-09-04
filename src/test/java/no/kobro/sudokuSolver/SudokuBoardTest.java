@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import no.kobro.sudokuSolver.utils.SudokuUtils;
-
 import static org.junit.jupiter.api.Assertions.*;
 public class SudokuBoardTest {
 
