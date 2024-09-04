@@ -124,11 +124,15 @@ public class SudokuBoard {
                 SudokuCell cell = board[row][col];
                 if (cell.isEmpty()) {
                     Set<Integer> candidates = cell.getCandidates();
-                    candidates.clear();
+
+                    // candidates.clear();
+                    // Will try to reverse this as I want to keep "state" for the candidates, thus resetting the
+                    // candidates and adding all possible candidates will remove any progress made while setting
+                    // naked pairs and triplets
 
                     for (int value = SudokuCell.MIN_VALUE; value <= SudokuCell.MAX_VALUE; value++) {
-                        if (canPlaceValue(row, col, value)) {
-                            candidates.add(value);
+                        if (!canPlaceValue(row, col, value)) {
+                            candidates.remove(value);
                         }
                     }
                 }

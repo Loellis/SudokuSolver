@@ -56,8 +56,8 @@ public class SudokuCell {
         return candidates;
     }
 
-    public void removeCandidate(int candidate) {
-        this.candidates.remove(candidate);
+    public boolean removeCandidate(int candidate) {
+        return this.candidates.remove(candidate);
     }
 
     public boolean hasSingleCandidate() {
